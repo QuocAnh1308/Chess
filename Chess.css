@@ -1,0 +1,49 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main{
+    height: 100vh;
+    width: 750px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: baseline;
+}
+
+button{
+    height: 90px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(250, 248, 244);
+    transition: opacity 0.2s linear, background-color 0.3s ease;
+    margin: 0px;
+}
+
+button:hover{
+    opacity: 0.6;
+}
+
+button:active{
+    background-color: rgb(241, 217, 167);
+}
+
+img{
+    height: inherit;
+    width: inherit;
+}
+
+.BlackBut{
+
+}
+.BlackImg{
+    height: 82px;
+    width: 87px;
+}
+
+#a31{
+    color: rgb(229, 165, 69);
+}
