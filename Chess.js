@@ -1,5 +1,4 @@
 let x = false;
-
 function ColerChessTable()
 {
     for(let i = 1; i <= 8; i++)
@@ -10,33 +9,29 @@ function ColerChessTable()
             if((i%2 == 1 && j%2 == 0) || (i%2 == 0 && j%2 == 1))
             {
                 document.getElementById(id).style.backgroundColor = "rgb(231, 150, 58)";
-                if(document.getElementById(id).dataset.type == "Available")
-                {
-                    document.getElementById(id).dataset.type = "None";
-                    document.getElementById(id).dataset.color = "None";
-                }
             }
             else
             {
-                document.getElementById(id).style.backgroundColor = "rgb(250, 248, 244)";
-                if(document.getElementById(id).dataset.type == "Available")
-                {
-                    document.getElementById(id).dataset.type = "None";
-                    document.getElementById(id).dataset.color = "None";
-
-                }
+                document.getElementById(id).style.backgroundColor = "white";
+            }
+            if(document.getElementById(id).dataset.type == "Available" && document.getElementById(id).dataset.color == "None")
+            {
+                document.getElementById(id).dataset.type = "None";
+            }
+            else if(document.getElementById(id).dataset.type == "Available" && document.getElementById(id).dataset.color != "None")
+            {
+                document.getElementById(id).dataset.type = document.getElementById(id).children[0].dataset.type;
             }
         }
     }
 }
-
 let select = false, order = true;
 let PreviousId;
 function Step(id)
 {
     let type = document.getElementById(id).dataset.type;
     let color = document.getElementById(id).dataset.color;
-    if(order == true && color == "Black")
+    if(order == true && color == "Black" && type != "Available")
     {
         select = false;
         PreviousId = "";
@@ -47,7 +42,7 @@ function Step(id)
         console.log(order);
         return;
     }
-    else if(order == false && color == "White")
+    else if(order == false && color == "White" && type != "Available")
     {
         select = false;
         PreviousId = "";
@@ -91,6 +86,10 @@ function Step(id)
             {
                 PawnStep(id);
             }
+            else if(type == "Rook")
+            {
+                RookStep(id);
+            }
             select = true;
             PreviousId = id;
         }
@@ -99,9 +98,7 @@ function Step(id)
     console.log(select);
     console.log("order");
     console.log(order);
-
 }
-
 function PawnStep(id)
 {
     let color = document.getElementById(id).dataset.color;
@@ -142,6 +139,7 @@ function PawnStep(id)
                     {
                         document.getElementById("a" + siteX + siteY).dataset.type = "Available";
                         document.getElementById("a" + siteX + siteY).style.backgroundColor = "Red";
+                        break;
                     }
                 }
             }
@@ -183,14 +181,103 @@ function PawnStep(id)
                     {
                         document.getElementById("a" + siteX + siteY).dataset.type = "Available";
                         document.getElementById("a" + siteX + siteY).style.backgroundColor = "Red";
+                        break;
                     }
                 }
             }
         }
     }
 }
-
-
+function SubRookStep(id, color)
+{
+    if(color == "White")
+    {
+        if(document.getElementById(id).dataset.type == "None")
+        {
+            document.getElementById(id).dataset.type = "Available";
+            document.getElementById(id).style.backgroundColor = "blue";
+        }
+        else
+        {
+            if(document.getElementById(id).dataset.color == "Black")
+            {
+                document.getElementById(id).dataset.type = "Available";
+                document.getElementById(id).style.backgroundColor = "red";
+                return 1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+    else
+    {
+        if(document.getElementById(id).dataset.type == "None")
+        {
+            document.getElementById(id).dataset.type = "Available";
+            document.getElementById(id).style.backgroundColor = "blue";
+        }
+        else
+        {
+            if(document.getElementById(id).dataset.color == "White")
+            {
+                document.getElementById(id).dataset.type = "Available";
+                document.getElementById(id).style.backgroundColor = "red";
+                return 1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+function RookStep(id)
+{
+    let color = document.getElementById(id).dataset.color;
+    let siteX = parseInt(id[1]), siteY = parseInt(id[2]);
+    while(1)
+    {
+        siteX++;
+        if(siteX <= 8)
+        {
+            if(SubRookStep("a" + siteX + siteY, color) == 1) break;
+        }
+        else break;
+    }
+    siteX = parseInt(id[1]), siteY = parseInt(id[2]);
+    while(1)
+    {
+        siteX--;
+        if(siteX >= 1)
+        {
+            if(SubRookStep("a" + siteX + siteY, color) == 1) break;
+        }
+        else break;
+    }
+    siteX = parseInt(id[1]), siteY = parseInt(id[2]);
+    while(1)
+    {
+        siteY++;
+        if(siteY <= 8)
+        {
+            if(SubRookStep("a" + siteX + siteY, color) == 1) break;
+        }
+        else break;
+    }
+    siteX = parseInt(id[1]), siteY = parseInt(id[2]);
+    while(1)
+    {
+        siteY--;
+        if(siteY >= 1)
+        {
+            if(SubRookStep("a" + siteX + siteY, color) == 1) break;
+        }
+        else break;
+    }
+}
 document.addEventListener("DOMContentLoaded", function() {
     ColerChessTable();
 });
