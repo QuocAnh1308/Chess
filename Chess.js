@@ -61,10 +61,20 @@ function Step(id)
             PreviousId = "";
         }
     }else if(type == "Available"){
+        
         select = false;
-        document.getElementById(id).dataset.type = document.getElementById(PreviousId).dataset.type;
-        document.getElementById(id).dataset.color = document.getElementById(PreviousId).dataset.color;
         document.getElementById(id).innerHTML = document.getElementById(PreviousId).innerHTML;
+        if(document.getElementById(id).dataset.type == "King")
+        {
+            if(document.getElementById(id).dataset.color == "White")
+            {
+            }
+            else
+            {
+            }
+        }
+        document.getElementById(id).dataset.type = document.getElementById(PreviousId).dataset.type;
+        document.getElementById(id).dataset.color = document.getElementById(PreviousId).dataset.color;        
         document.getElementById(PreviousId).innerHTML = "";
         document.getElementById(PreviousId).dataset.type = "None";
         document.getElementById(PreviousId).dataset.color = "None";
@@ -96,13 +106,20 @@ function Step(id)
             {
                 KnightStep(id);
             }
+            else if(type == "Bishop")
+            {
+                BishopStep(id);
+            }
+            else if(type == "Queen")
+            {
+                QueenStep(id);
+            }
             select = true;
             PreviousId = id;
         }
     }
     console.log("select");
     console.log(select);
-    console.log(PreviousId);
     console.log("order");
     console.log(order);
     
@@ -125,6 +142,22 @@ function PawnStep(id)
             else
             {
                 if(document.getElementById("a" + siteX + siteY).dataset.color == "Black")
+                {
+                    document.getElementById("a" + siteX + siteY).dataset.type = "Available";
+                    document.getElementById("a" + siteX + siteY).style.backgroundColor = "Red";
+                }
+            }
+            if(siteY + 1 <= 8){
+                siteY++;
+                if(document.getElementById("a" + siteX + siteY).dataset.type != "None" && document.getElementById("a" + siteX + siteY).dataset.color == "Black")
+                {
+                    document.getElementById("a" + siteX + siteY).dataset.type = "Available";
+                    document.getElementById("a" + siteX + siteY).style.backgroundColor = "Red";
+                }
+            }
+            if(siteY - 1 >= 1)
+            {
+                if(document.getElementById("a" + siteX + siteY).dataset.type != "None" && document.getElementById("a" + siteX + siteY).dataset.color == "Black")
                 {
                     document.getElementById("a" + siteX + siteY).dataset.type = "Available";
                     document.getElementById("a" + siteX + siteY).style.backgroundColor = "Red";
@@ -167,6 +200,22 @@ function PawnStep(id)
             else
             {
                 if(document.getElementById("a" + siteX + siteY).dataset.color == "White")
+                {
+                    document.getElementById("a" + siteX + siteY).dataset.type = "Available";
+                    document.getElementById("a" + siteX + siteY).style.backgroundColor = "Red";
+                }
+            }
+            if(siteY + 1 <= 8){
+                siteY++;
+                if(document.getElementById("a" + siteX + siteY).dataset.type != "None" && document.getElementById("a" + siteX + siteY).dataset.color == "Black")
+                {
+                    document.getElementById("a" + siteX + siteY).dataset.type = "Available";
+                    document.getElementById("a" + siteX + siteY).style.backgroundColor = "Red";
+                }
+            }
+            if(siteY - 1 >= 1)
+            {
+                if(document.getElementById("a" + siteX + siteY).dataset.type != "None" && document.getElementById("a" + siteX + siteY).dataset.color == "Black")
                 {
                     document.getElementById("a" + siteX + siteY).dataset.type = "Available";
                     document.getElementById("a" + siteX + siteY).style.backgroundColor = "Red";
@@ -286,7 +335,6 @@ function RookStep(id)
         else break;
     }
 }
-
 function SubKnightStep(siteX, siteY, id)
 {
     if(document.getElementById("a" + siteX + siteY).dataset.type == "None")
@@ -303,7 +351,6 @@ function SubKnightStep(siteX, siteY, id)
         }
     }
 }
-
 function KnightStep(id)
 {
     let siteX = parseInt(id[1]) + 2, siteY = parseInt(id[2]);
@@ -366,7 +413,42 @@ function KnightStep(id)
         }
     }
 }
-
+function BishopStep(id)
+{
+    let siteX = parseInt(id[1]), siteY = parseInt(id[2])
+    while(1)
+    {
+        if(siteX == 8 || siteY == 8) break;
+        siteX++; siteY++;
+        if (SubRookStep("a" + siteX + siteY, document.getElementById(id).dataset.color) == 1) break;
+    }
+    siteX = siteX = parseInt(id[1]); siteY = parseInt(id[2]);
+    while(1)
+    {
+        if(siteX == 8 || siteY == 1) break;
+        siteX++; siteY--;
+        if (SubRookStep("a" + siteX + siteY, document.getElementById(id).dataset.color) == 1) break;
+    }
+    siteX = siteX = parseInt(id[1]); siteY = parseInt(id[2]);
+    while(1)
+    {
+        if(siteX == 1 || siteY == 8) break;
+        siteX--; siteY++;
+        if (SubRookStep("a" + siteX + siteY, document.getElementById(id).dataset.color) == 1) break;
+    }
+    siteX = siteX = parseInt(id[1]); siteY = parseInt(id[2]);
+    while(1)
+    {
+        if(siteX == 1 || siteY == 1) break;
+        siteX--; siteY--;
+        if (SubRookStep("a" + siteX + siteY, document.getElementById(id).dataset.color) == 1) break;
+    }
+}
+function QueenStep(id)
+{
+    BishopStep(id);
+    RookStep(id);
+}
 document.addEventListener("DOMContentLoaded", function() {
     ColerChessTable();
 });
