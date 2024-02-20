@@ -26,7 +26,7 @@ button:hover{
 }
 
 button:active{
-    background-color: rgb(241, 217, 167);
+    background-color: rgb(231, 150, 58);
 }
 
 img{
@@ -44,4 +44,6 @@ img{
 
 #a31{
     color: rgb(229, 165, 69);
+   color: rgba(225, 54, 7, 0.5); */
 }
+
