@@ -81,6 +81,8 @@ function Step(id)
         }
         else
         {
+            console.log(PreviousId);
+            console.log("123adf");
             ColerChessTable();
             if(type == "Pawn")
             {
@@ -90,14 +92,20 @@ function Step(id)
             {
                 RookStep(id);
             }
+            else if(type == "Knight")
+            {
+                KnightStep(id);
+            }
             select = true;
             PreviousId = id;
         }
     }
     console.log("select");
     console.log(select);
+    console.log(PreviousId);
     console.log("order");
     console.log(order);
+    
 }
 function PawnStep(id)
 {
@@ -278,6 +286,87 @@ function RookStep(id)
         else break;
     }
 }
+
+function SubKnightStep(siteX, siteY, id)
+{
+    if(document.getElementById("a" + siteX + siteY).dataset.type == "None")
+    {
+        document.getElementById("a" + siteX + siteY).style.backgroundColor = "blue";
+        document.getElementById("a" + siteX + siteY).dataset.type = "Available";
+    }
+    else if(document.getElementById("a" + siteX + siteY).dataset.type != "None")
+    {
+        if(document.getElementById("a" + siteX + siteY).dataset.color != document.getElementById(id).dataset.color)
+        {
+            document.getElementById("a" + siteX + siteY).style.backgroundColor = "red";
+            document.getElementById("a" + siteX + siteY).dataset.type = "Available";
+        }
+    }
+}
+
+function KnightStep(id)
+{
+    let siteX = parseInt(id[1]) + 2, siteY = parseInt(id[2]);
+    if(siteX <= 8)
+    {
+        siteY++;
+        if(siteY <= 8)
+        {
+            SubKnightStep(siteX, siteY, id);
+        }
+        siteY-=2;
+        if(siteY >= 1)
+        {
+            SubKnightStep(siteX, siteY, id);
+        }
+    }
+    siteX = parseInt(id[1]) - 2;
+    siteY = parseInt(id[2]);
+    if(siteX >= 1)
+    {
+        siteY++;
+        if(siteY <= 8)
+        {
+            SubKnightStep(siteX, siteY, id);
+        }
+        siteY -= 2;
+        if(siteY >= 1)
+        {
+            SubKnightStep(siteX, siteY, id);
+        }
+    }
+    siteX = parseInt(id[1]);
+    siteY = parseInt(id[2]) + 2;
+    if(siteY <= 8)
+    {
+        siteX++;
+        if(siteX <= 8)
+        {
+            SubKnightStep(siteX, siteY, id);
+        }
+        siteX-=2;
+        if(siteX >= 1)
+        {
+            SubKnightStep(siteX, siteY, id);
+        }
+    }
+    siteX = parseInt(id[1]);
+    siteY = parseInt(id[2]) - 2;
+    if(siteY >= 1)
+    {
+        siteX++;
+        if(siteX <= 8)
+        {
+            SubKnightStep(siteX, siteY, id);
+        }
+        siteX-=2;
+        if(siteX >= 1)
+        {
+            SubKnightStep(siteX, siteY, id);
+        }
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     ColerChessTable();
 });
