@@ -512,19 +512,22 @@ function KingStep(id)
         siteY-=2;
         if(siteY >= 1)
         {
+            console.log("add");
             SubKnightStep(siteX, siteY, id);
         }
     }
-    siteX-=2;
+    siteX = parseInt(id[1]) - 1; siteY = parseInt(id[2]);
     if(siteX >= 1)
-    {
+    {        
+        SubKnightStep(siteX, siteY, id);
+        console.log("addd");
+        siteY--;
         if(siteY >= 1)
         {
             SubKnightStep(siteX, siteY, id);
         }
-        siteY++;
-        SubKnightStep(siteX, siteY, id);
-        siteY++;
+        siteY+=2;
+        console.log(siteY);
         if(siteY <= 8)
         {
             SubKnightStep(siteX, siteY, id);
