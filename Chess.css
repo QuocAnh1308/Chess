@@ -3,9 +3,18 @@ body{
     justify-content: center;
     align-items: center;
     margin: 0;
+    background-color: aqua;
 }
 main{
-    height: 98vh;
+    height: 715px;
+    width: 750px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    background-clip: padding-box;
+}
+#mainDiv{
     width: 750px;
     display: flex;
     flex-wrap: wrap;
