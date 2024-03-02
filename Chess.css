@@ -38,16 +38,16 @@ button{
     align-items: center;
     justify-content: center;
     background-color: rgb(250, 248, 244);
-    transition: opacity 0.2s linear, background-color 0.3s ease;
+    transition: background-color 0.3s ease;
     margin: 0px;
 }
 
 button:hover{
-    opacity: 0.6;
+    background-color: bisque !important ;
 }
 
 button:active{
-    background-color: rgb(231, 150, 58);
+    background-color: beige !important;
 }
 
 img{
@@ -55,9 +55,6 @@ img{
     width: inherit;
 }
 
-.BlackBut{
-
-}
 .BlackImg{
     height: 82px;
     width: 87px;
